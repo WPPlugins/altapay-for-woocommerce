@@ -1,0 +1,28 @@
+<?php
+
+if(!defined('PENSIO_API_ROOT'))
+{
+	define('PENSIO_API_ROOT',dirname(__DIR__));
+}
+
+require_once(PENSIO_API_ROOT.'/response/PensioAbstractPaymentResponse.class.php');
+
+class PensioGetPaymentResponse extends PensioAbstractPaymentResponse
+{
+	public function __construct(SimpleXmlElement $xml)
+	{
+		parent::__construct($xml);
+	}
+	
+	protected function parseBody(SimpleXmlElement $body)
+	{
+		
+	}
+
+	public function wasSuccessful()
+	{
+		return $this->getErrorCode() === '0' && !is_null($this->getPrimaryPayment());
+	}
+
+
+}
